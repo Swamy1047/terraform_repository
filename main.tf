@@ -131,3 +131,16 @@ resource "aws_route" "database" {
   nat_gateway_id = aws_nat_gateway.nat.id
   depends_on                = [aws_route_table.database_rt]
 }
+
+resource "aws_instance" "web_server" {
+    subnet_id = aws_subnet.public_subnet.id
+    instance_type = var.instance_type
+    ami = var.ami_id
+
+    tags = {
+      Name = "Web-server"
+      Environment = "Dev"
+      Terraform = "true"
+    }
+  
+}
